@@ -6,6 +6,7 @@ import logging
 import os
 import shutil
 import subprocess
+import tarfile
 import tempfile
 import urllib.parse
 from typing import Optional, Tuple
@@ -57,14 +58,27 @@ class PDFEngine:
             except Exception as e:
                 logger.warning(f"Local compiler failed: {e}. Falling back to online compiler.")
 
-        # Strategy 2: Free Public latexonline.cc API
+        # Strategy 2: Free Public latexonline.cc API via multipart POST
         try:
-            url = "https://latexonline.cc/compile?text=" + urllib.parse.quote(latex_code)
+            # Package the LaTeX source into an in-memory tar.gz archive
+            # This completely avoids the '414 Request-URI Too Large' error caused by GET queries
+            tar_buf = io.BytesIO()
+            with tarfile.open(fileobj=tar_buf, mode="w:gz") as tar:
+                data = latex_code.encode("utf-8")
+                ti = tarfile.TarInfo(name="main.tex")
+                ti.size = len(data)
+                tar.addfile(ti, io.BytesIO(data))
+            tar_bytes = tar_buf.getvalue()
+
+            files = {"file": ("project.tar.gz", tar_bytes, "application/gzip")}
+            url = "https://latexonline.cc/data?target=main.tex"
+            
             with httpx.Client(timeout=timeout_sec) as client:
-                resp = client.get(url)
-                if resp.status_code == 200 and resp.headers.get("content-type", "").startswith("application/pdf"):
-                    return resp.content, None
-                elif resp.status_code == 200 and len(resp.content) > 1000 and resp.content[:4] == b"%PDF":
+                resp = client.post(url, files=files)
+                if resp.status_code == 200 and (
+                    resp.headers.get("content-type", "").startswith("application/pdf")
+                    or (len(resp.content) > 1000 and resp.content[:4] == b"%PDF")
+                ):
                     return resp.content, None
                 else:
                     err_msg = resp.text[:300] if resp.text else f"HTTP {resp.status_code}"
