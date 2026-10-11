@@ -258,7 +258,7 @@ def main():
             disabled=not can_run
         )
 
-    if not can_run and not default_latex:
+    if not can_run and not latex_code.strip():
         st.info("👆 Click **'Load Sample Resume & JD'** in the left sidebar to preview the pipeline in 1 click!")
 
     # Pipeline Execution
