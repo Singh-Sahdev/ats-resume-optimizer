@@ -1,0 +1,135 @@
+%-------------------------
+% Resume in LaTeX
+% Based on Jake's Resume Template
+% License: MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Huge \scshape Alex Morgan} \\ \vspace{1pt}
+    \small 555-123-4567 $|$ \href{mailto:alex.morgan@email.com}{\underline{alex.morgan@email.com}} $|$ 
+    \href{https://linkedin.com/in/alexmorgan}{\underline{linkedin.com/in/alexmorgan}} $|$
+    \href{https://github.com/alexmorgan}{\underline{github.com/alexmorgan}}
+\end{center}
+
+%----------- EDUCATION -----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {State University}{City, ST}
+      {Bachelor of Science in Computer Science}{Aug. 2018 -- May 2022}
+  \resumeSubHeadingListEnd
+
+%----------- TECHNICAL SKILLS -----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, JavaScript, SQL, HTML, CSS} \\
+     \textbf{Frameworks}{: React, Flask, Node.js, Express} \\
+     \textbf{Developer Tools}{: Git, Docker, VS Code, Postman} \\
+     \textbf{Databases}{: PostgreSQL, MySQL, MongoDB}
+    }}
+ \end{itemize}
+
+%----------- EXPERIENCE -----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Software Engineer}{June 2022 -- Present}
+      {TechCorp Solutions}{San Francisco, CA}
+      \resumeItemListStart
+        \resumeItem{Developed web applications using React and Python Flask to support internal business operations.}
+        \resumeItem{Built RESTful APIs and connected relational databases to serve client dashboard requests.}
+        \resumeItem{Containerized application services using Docker and automated basic deployment scripts.}
+        \resumeItem{Collaborated with product managers to scope features and fix bug tickets in sprint cycles.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Junior Developer Intern}{Jan. 2022 -- May 2022}
+      {CloudWave Systems}{Remote}
+      \resumeItemListStart
+        \resumeItem{Wrote unit tests and backend scripts in Python to validate data ingestion pipelines.}
+        \resumeItem{Assisted in migrating legacy MySQL database tables to PostgreSQL for improved stability.}
+        \resumeItem{Documented API endpoints and participated in weekly team code reviews.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%----------- PROJECTS -----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeSubheading
+        {E-Commerce Inventory Tracker}{Sept. 2023 -- Dec. 2023}
+        {Full Stack Web Application}{Personal Project}
+        \resumeItemListStart
+          \resumeItem{Created a full-stack platform using React, Node.js, and MongoDB for real-time inventory management.}
+          \resumeItem{Implemented user authentication using JWT and secure password hashing.}
+          \resumeItem{Configured automated notifications and responsive UI components for cross-device usage.}
+        \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-------------------------------------------
+\end{document}

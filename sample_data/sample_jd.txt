@@ -1,0 +1,26 @@
+Senior Full Stack / Cloud Software Engineer
+Company: InnovateTech AI Solutions
+Location: San Francisco, CA (Hybrid / Remote)
+
+About the Role:
+We are seeking a high-performing Senior Software Engineer to design, scale, and maintain our next-generation cloud platforms and AI-driven APIs. You will work closely with cross-functional teams to build resilient microservices, streamline CI/CD delivery, and deliver delightful user experiences to millions of global customers.
+
+Key Responsibilities:
+- Architect and develop scalable microservices and RESTful APIs using Python (FastAPI/Django) and modern TypeScript/React.
+- Design high-performance distributed systems utilizing PostgreSQL, Redis caching, and Kafka event streaming.
+- Own end-to-end containerized deployments using Docker, Kubernetes, Helm, and AWS infrastructure (ECS, EKS, Lambda, S3).
+- Implement robust CI/CD pipelines via GitHub Actions, automating testing, security scans, and zero-downtime releases.
+- Optimize database queries, system latency, and memory footprint to maintain 99.99% high availability and high throughput.
+- Mentor junior engineers, conduct rigorous code reviews, and drive agile best practices.
+
+Required Qualifications & Skills:
+- 3+ years of professional software engineering experience.
+- Strong proficiency in Python and modern JavaScript/TypeScript.
+- Hands-on experience with Docker, Kubernetes, and AWS cloud services.
+- Solid background in relational databases (PostgreSQL) and caching architectures (Redis).
+- Proven track record with CI/CD automation, unit testing, and agile workflows.
+- Experience with microservices architecture and distributed systems design.
+
+Preferred / Bonus Skills:
+- Experience with GraphQL, Terraform, or Prometheus/Grafana monitoring.
+- Familiarity with AI/ML API integration and LLM application development.
