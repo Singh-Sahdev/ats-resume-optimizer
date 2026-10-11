@@ -184,8 +184,8 @@ def main():
         # 1-Click Sample Loader Button
         if st.button("📋 Load Sample Resume & JD", use_container_width=True):
             sample_latex, sample_jd = load_sample_data()
-            st.session_state["input_latex"] = sample_latex
-            st.session_state["input_jd"] = sample_jd
+            st.session_state["input_latex_area"] = sample_latex
+            st.session_state["input_jd_area"] = sample_jd
             st.rerun()
 
     # Main Area: Inputs
@@ -201,50 +201,49 @@ def main():
             help="Upload your LaTeX (.tex) resume or an existing PDF. If PDF is uploaded, text is extracted."
         )
         
-        default_latex = st.session_state.get("input_latex", "")
-        
+        # Handle file upload and directly populate the widget session state
         if uploaded_file is not None:
-            file_name = uploaded_file.name.lower()
-            if file_name.endswith(".pdf"):
-                with st.spinner("Extracting text from uploaded PDF..."):
-                    try:
-                        pdf_bytes = uploaded_file.read()
-                        extracted_text = PDFEngine.extract_text_from_pdf(pdf_bytes)
-                        st.success(f"Extracted {len(extracted_text.split())} words from PDF!")
-                        # If no LaTeX in session, load the base ATS template and notify
-                        if not default_latex:
-                            sample_latex, _ = load_sample_data()
-                            default_latex = sample_latex
-                            st.session_state["input_latex"] = default_latex
-                            st.info("Loaded ATS LaTeX template populated with standard format. You can customize the source below.")
-                    except Exception as e:
-                        st.error(f"Error reading PDF: {e}")
-            else:
-                default_latex = uploaded_file.read().decode("utf-8", errors="ignore")
-                st.session_state["input_latex"] = default_latex
+            last_file_key = f"{uploaded_file.name}_{uploaded_file.size}"
+            if st.session_state.get("last_uploaded_file_id") != last_file_key:
+                st.session_state["last_uploaded_file_id"] = last_file_key
+                file_name = uploaded_file.name.lower()
+                if file_name.endswith(".pdf"):
+                    with st.spinner("Extracting text from uploaded PDF..."):
+                        try:
+                            pdf_bytes = uploaded_file.read()
+                            extracted_text = PDFEngine.extract_text_from_pdf(pdf_bytes)
+                            st.success(f"Extracted {len(extracted_text.split())} words from PDF!")
+                            if not st.session_state.get("input_latex_area"):
+                                sample_latex, _ = load_sample_data()
+                                st.session_state["input_latex_area"] = sample_latex
+                                st.info("Loaded ATS LaTeX template. Customize the content below.")
+                        except Exception as e:
+                            st.error(f"Error reading PDF: {e}")
+                else:
+                    file_content = uploaded_file.read().decode("utf-8", errors="ignore")
+                    st.session_state["input_latex_area"] = file_content
+                    st.rerun()
+
+        if "input_latex_area" not in st.session_state:
+            st.session_state["input_latex_area"] = ""
 
         latex_code = st.text_area(
             "LaTeX Source Code (Preserved 100% as fallback)",
-            value=default_latex,
             height=320,
             placeholder=r"\documentclass{article} ... \begin{document} ... \end{document}",
             key="input_latex_area"
         )
-        if latex_code:
-            st.session_state["input_latex"] = latex_code
 
     with col_in2:
         st.subheader("Target Job Description (JD)")
-        default_jd = st.session_state.get("input_jd", "")
+        if "input_jd_area" not in st.session_state:
+            st.session_state["input_jd_area"] = ""
         jd_text = st.text_area(
             "Paste Target Job Description",
-            value=default_jd,
             height=320,
             placeholder="Paste role title, responsibilities, tools, and qualifications here...",
             key="input_jd_area"
         )
-        if jd_text:
-            st.session_state["input_jd"] = jd_text
 
     # Action Button
     st.markdown("<br>", unsafe_allow_html=True)
